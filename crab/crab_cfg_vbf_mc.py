@@ -8,7 +8,10 @@ import os
 config = Configuration()
 
 dataset = '/QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM'
-process = (dataset.split('_')[0] + '_' + dataset.split('_')[1]).replace('/', '') 
+if len( dataset.split('/')[1].split('_') ) >= 3:
+    process = (dataset.split('_')[0] + '_' + dataset.split('_')[1]).replace('/', '')
+else:
+    process = dataset.split('/')[1]
 era = (dataset.split('/')[2]).split('_')[0]
 
 
