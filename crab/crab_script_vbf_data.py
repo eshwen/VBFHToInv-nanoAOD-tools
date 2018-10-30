@@ -6,7 +6,11 @@ from VBFHToInv.NanoAODTools.postprocessing.VBFHToInvModules import *
 #this takes care of converting the input files from CRAB
 from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputFiles,runsAndLumis
 
-p=PostProcessor('.',inputFiles(),modules=[JetCleaningConstructor(),MetCleaningConstructor(),TriggerSelectionConstructor()],provenance=True,fwkJobReport=True,jsonInput='Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt')
+modules = [ TriggerSelectionConstructor(),
+            JetCleaningConstructor(),
+            MetCleaningConstructor(), ]
+
+p = PostProcessor('.', inputFiles(), modules=modules, provenance=True, fwkJobReport=True, jsonInput='Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt')
 p.run()
 
 print "DONE"

@@ -5,10 +5,6 @@ import os
 config = Configuration()
 
 dataset = '/MET/Run2017B-31Mar2018-v1/NANOAOD'
-if len( dataset.split('/')[1].split('_') ) >= 3:
-    process = (dataset.split('_')[0] + '_' + dataset.split('_')[1]).replace('/', '')
-else:
-    process = dataset.split('/')[1]
 era = (dataset.split('/')[2]).split('_')[0]
 
 config.section_("General")
