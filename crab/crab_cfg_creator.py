@@ -13,9 +13,21 @@ group.add_argument('--mc',   action='store_true', help="Use this option if datas
 args = parser.parse_args()
 
 today = str(date.today()).replace('-', '')
+config_out_dir = os.path.join( os.getcwd(), 'configs_'+today )
 
 
-def write_config(dataset, proc_era, year, dataMC, out_dir='configs_'+today):
+def write_config(dataset, proc_era, year, dataMC, out_dir=config_out_dir):
+    """ Copy extra files required for CRAB and write config file for dataset """
+    # Supplementary files required for CRAB
+    suppl = {'PSet': 'PSet.py',
+             'crab_sh': 'crab_script_vbf_{dataMC}_{year}.sh'.format(dataMC=dataMC, year=year),
+             'crab_py': 'crab_script_vbf_{dataMC}_{year}.py'.format(dataMC=dataMC, year=year),
+    }
+
+    # Copy files to output dir for self-containment and logging
+    for key in suppl:
+        shutil.copy(suppl[key], out_dir)
+
     out_file = open( os.path.join(out_dir, proc_era+'.py'), 'w' )
     
     out_file.write("""
@@ -28,9 +40,9 @@ config.General.requestName = '{request_name}'
 config.General.transferLogs = True
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'PSet.py'
-config.JobType.scriptExe = 'crab_script_vbf_{dataMC}_{year}.sh'
-config.JobType.inputFiles = ['crab_script_vbf_{dataMC}_{year}.py', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', {json_file}] #hadd nano will not be needed once nano tools are in cmssw
+config.JobType.psetName = '{PSet}'
+config.JobType.scriptExe = '{crab_sh}'
+config.JobType.inputFiles = ['{crab_py}', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', {json_file}] #hadd nano will not be needed once nano tools are in cmssw
 config.JobType.sendPythonFolder = True
 
 config.Data.inputDataset = '{dataset}'
@@ -44,20 +56,20 @@ config.Data.unitsPerJob = 50000
 config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
-""".format(request_name=proc_era, year=year, dataMC=dataMC, dataset=dataset, file_out_dir='CHIP_skim_bkg_test1',
+""".format(request_name=proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'], dataset=dataset, file_out_dir='CHIP_skim_bkg_test1',
     json_file=os.environ['CMSSW_BASE']+'/src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt' if dataMC == 'data' else '')
     )
     
     out_file.close()
     
-    print "CRAB config file written for {bold}{ds}{end}, stored in {bold}{dir}/{end}".format(ds=dataset, dir=out_dir, bold='\033[1m', end='\033[0m')
-
+    print "CRAB config file written for {bold}{ds}{end}, stored in {bold}{dir}/{end}".format(ds=dataset, dir=os.path.relpath(out_dir), bold='\033[1m', end='\033[0m')
+    
 
 def main():
     """ Take in list of datasets and create CRAB config files for each """
 
-    if not os.path.exists('configs_'+today):
-        os.mkdir('configs_'+today)
+    if not os.path.exists(config_out_dir):
+        os.mkdir(config_out_dir)
 
     with open(args.dataset_list) as in_file:
         input_datasets = in_file.readlines()
@@ -66,6 +78,8 @@ def main():
 
     # Write identifier strings to use in CRAB config, then write
     for dataset in input_datasets:
+        if dataset.startswith('#') or dataset.startswith('\n'):
+            continue
         dataset = dataset.rstrip('\n')
         if args.mc:
             process = (dataset.split('_')[0] + '_' + dataset.split('_')[1]).replace('/', '')
@@ -78,7 +92,7 @@ def main():
 
         elif args.data:
             process = dataset.split('/')[1]
-            era = (dataset.split('/')[2]).split('_')[0]
+            era = dataset.split('/')[2]
             proc_era = process + '_' + era
             if 'Run2016' in dataset: year = 2016
             elif 'Run2017' in dataset: year = 2017
