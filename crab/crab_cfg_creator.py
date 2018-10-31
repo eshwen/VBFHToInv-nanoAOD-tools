@@ -25,13 +25,13 @@ import os
 
 config = config()
 config.General.requestName = '{request_name}'
-config.General.transferLogs=True
+config.General.transferLogs = True
 
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'PSet.py'
 config.JobType.scriptExe = 'crab_script_vbf_{dataMC}_{year}.sh'
 config.JobType.inputFiles = ['crab_script_vbf_{dataMC}_{year}.py', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', {json_file}] #hadd nano will not be needed once nano tools are in cmssw
-config.JobType.sendPythonFolder	 = True
+config.JobType.sendPythonFolder = True
 
 config.Data.inputDataset = '{dataset}'
 #config.Data.inputDBS = 'phys03'
@@ -43,7 +43,7 @@ config.Data.unitsPerJob = 50000
 
 config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
 config.Data.publication = False
-config.Site.storageSite = "T2_UK_SGrid_Bristol"
+config.Site.storageSite = 'T2_UK_SGrid_Bristol'
 """.format(request_name=proc_era, year=year, dataMC=dataMC, dataset=dataset, file_out_dir='CHIP_skim_bkg_test1',
     json_file=os.environ['CMSSW_BASE']+'/src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt' if dataMC == 'data' else '')
     )
@@ -66,6 +66,7 @@ def main():
 
     # Write identifier strings to use in CRAB config, then write
     for dataset in input_datasets:
+        dataset = dataset.rstrip('\n')
         if args.mc:
             process = (dataset.split('_')[0] + '_' + dataset.split('_')[1]).replace('/', '')
             era = (dataset.split('/')[2]).split('_')[0]
