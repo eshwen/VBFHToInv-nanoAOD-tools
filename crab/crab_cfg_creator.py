@@ -57,7 +57,7 @@ config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
 """.format(request_name=proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'], dataset=dataset, file_out_dir='CHIP_skim_bkg_test1',
-    json_file=os.environ['CMSSW_BASE']+'/src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt' if dataMC == 'data' else '')
+    json_file='os.environ[\'CMSSW_BASE\']+\'/src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt\'' if dataMC == 'data' else '')
     )
     
     out_file.close()
