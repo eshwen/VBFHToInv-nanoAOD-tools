@@ -60,7 +60,7 @@ config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = '{PSet}'
 config.JobType.scriptExe = '{crab_sh}'
-config.JobType.inputFiles = ['{crab_py}', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', '{json}']
+config.JobType.inputFiles = ['{crab_py}', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', {json}]
 config.JobType.sendPythonFolder = True
 
 config.Data.inputDataset = '{dataset}'
@@ -75,7 +75,7 @@ config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
 """.format(request_name=proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'],
-           dataset=dataset, file_out_dir='CHIP_skim_bkg_test1', json=json_file if dataMC == 'data' else '')
+           dataset=dataset, file_out_dir='CHIP_skim_bkg_test1', json='{}'.format(json_file) if dataMC == 'data' else '')
     )
     out_file.close()
     
