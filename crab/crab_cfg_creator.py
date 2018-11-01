@@ -24,12 +24,30 @@ def write_config(dataset, proc_era, year, dataMC, out_dir=config_out_dir):
              'crab_py': 'crab_script_vbf_{dataMC}_{year}.py'.format(dataMC=dataMC, year=year),
     }
 
+    # Get run block for data. Currently required because JEC uncertainties module splits run blocks
+    if dataMC == 'data':
+        run_block = get_run_block(proc_era)
+        
     # Copy files to output dir for self-containment and logging
-    for key in suppl:
-        shutil.copy(suppl[key], out_dir)
+    for key, val in suppl.iteritems():
+        if 'crab' in key and dataMC == 'data':
+            with open(val, 'r') as in_file:
+                old_str = in_file.read()
+            new_str = old_str.format(block=run_block)
+            val = val.replace('.', run_block+'.') # dirty way to append run_block onto files
+            suppl[key] = val # update dictionary so new file is used
+            with open( os.path.join(out_dir, val), 'w') as out_file:
+                out_file.write(new_str)
+                continue
+        shutil.copy(val, out_dir)
 
-    out_file = open( os.path.join(out_dir, proc_era+'.py'), 'w' )
-    
+    if year == 2016:
+        json_file = os.path.join(os.environ['CMSSW_BASE'], 'src/VBFHToInv/NanoAODTools/data/pileup/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt')
+    elif year == 2017:
+        json_file = os.path.join(os.environ['CMSSW_BASE'], 'src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt')
+
+    # Write config file
+    out_file = open( os.path.join(out_dir, proc_era+'.py'), 'w' )    
     out_file.write("""
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 from CRABAPI.RawCommand import crabCommand
@@ -42,7 +60,7 @@ config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = '{PSet}'
 config.JobType.scriptExe = '{crab_sh}'
-config.JobType.inputFiles = ['{crab_py}', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', {json_file}] #hadd nano will not be needed once nano tools are in cmssw
+config.JobType.inputFiles = ['{crab_py}', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py', '{json}']
 config.JobType.sendPythonFolder = True
 
 config.Data.inputDataset = '{dataset}'
@@ -56,14 +74,28 @@ config.Data.unitsPerJob = 50000
 config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
-""".format(request_name=proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'], dataset=dataset, file_out_dir='CHIP_skim_bkg_test1',
-    json_file='os.environ[\'CMSSW_BASE\']+\'/src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt\'' if dataMC == 'data' else '')
+""".format(request_name=proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'],
+           dataset=dataset, file_out_dir='CHIP_skim_bkg_test1', json=json_file if dataMC == 'data' else '')
     )
-    
     out_file.close()
     
     print "CRAB config file written for {bold}{ds}{end}, stored in {bold}{dir}/{end}".format(ds=dataset, dir=os.path.relpath(out_dir), bold='\033[1m', end='\033[0m')
     
+
+def get_run_block(proc_era):
+    """ Get run block for data. Currently required because JEC uncertainties module splits run blocks """
+    run_block = proc_era.split('-')[0]
+    # JEC uncertainties grouped for 2016BCD
+    if any(i in proc_era for i in ['2016B', '2016C', '2016D']):
+        run_block = 'BCD'
+    # JEC uncertainties grouped for 2016EF
+    elif any(i in proc_era for i in ['2016E', '2016F']):
+        run_block = 'EF'
+    # All other JEC uncertainties are split by run block, so just take last character
+    else:
+        run_block = run_block[-1]
+    return run_block
+
 
 def main():
     """ Take in list of datasets and create CRAB config files for each """

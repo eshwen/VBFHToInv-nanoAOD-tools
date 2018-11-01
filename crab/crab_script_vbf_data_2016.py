@@ -8,9 +8,10 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputF
 
 modules = [ TriggerSelectionConstructor(),
             JetCleaningConstructor(),
-            MetCleaningConstructor(), ]
+            MetCleaningConstructor(),
+            jecUncert_2016{block}_data(), ] # BCD is a kwarg replacement field, replaced in crab_cfg_creator with a proper value
 
-p = PostProcessor('.', inputFiles(), modules=modules, provenance=True, fwkJobReport=True, jsonInput='Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt')
+p = PostProcessor('.', inputFiles(), modules=modules, provenance=True, fwkJobReport=True, jsonInput='Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt')
 p.run()
 
 print "DONE"

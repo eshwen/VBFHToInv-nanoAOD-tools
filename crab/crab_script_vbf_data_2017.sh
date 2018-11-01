@@ -24,5 +24,5 @@ mv module $CMSSW_BASE/module
 mv python $CMSSW_BASE/python
 
 echo Found Proxy in: $X509_USER_PROXY
-python crab_script_vbf_data.py $1
+python crab_script_vbf_data_2017{block}.py $1 # {block} is a kwarg replacement field, replaced in crab_cfg_creator with a proper value
 fi
