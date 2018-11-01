@@ -11,7 +11,9 @@ modules = [ TriggerSelectionConstructor(),
             MetCleaningConstructor(),
             #puWeight2016(), <-- need to figure out and define import in VBFHToInvModules.py
             btagSF2016(),
-            jetmetUncertainties2016All() ]
+            #jetmetUncertainties2016All(),
+            jecUncert_2016_MC(),
+]
 
 p = PostProcessor(".", inputFiles(), modules=modules, provenance=True, fwkJobReport=True)
 p.run()

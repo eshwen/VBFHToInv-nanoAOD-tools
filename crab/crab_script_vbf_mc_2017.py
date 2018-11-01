@@ -12,7 +12,8 @@ modules = [ TriggerSelectionConstructor(),
             MetCleaningConstructor(), 
             puWeight2017(),
             btagSF2017(),
-            jetmetUncertainties2017All() ]
+            #jetmetUncertainties2017All(),
+            jecUncert_2017_MC(), ]
 
 p = PostProcessor(".", inputFiles(), modules=modules, provenance=True, fwkJobReport=True)
 p.run()
