@@ -48,3 +48,5 @@ jecUncert_2017C_data = lambda : jecUncertProducer('Fall17_17Nov2017C_V6_DATA', j
 jecUncert_2017D_data = lambda : jecUncertProducer('Fall17_17Nov2017D_V6_DATA', jec_uncerts)
 jecUncert_2017E_data = lambda : jecUncertProducer('Fall17_17Nov2017E_V6_DATA', jec_uncerts)
 jecUncert_2017F_data = lambda : jecUncertProducer('Fall17_17Nov2017F_V6_DATA', jec_uncerts)
+
+from PhysicsTools.NanoAODTools.postprocessing.modules.common.countHistogramsModule import countHistogramsModule

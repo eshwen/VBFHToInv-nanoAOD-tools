@@ -6,7 +6,8 @@ from VBFHToInv.NanoAODTools.postprocessing.VBFHToInvModules import *
 #this takes care of converting the input files from CRAB
 from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputFiles,runsAndLumis
 
-modules = [ TriggerSelectionConstructor(),
+modules = [ countHistogramsModule(),
+            TriggerSelectionConstructor(),
             JetCleaningConstructor(),
             MetCleaningConstructor(),
             jecUncert_2017{block}_data(), ] # {block} is a kwarg replacement field, replaced in crab_cfg_creator with a proper value
