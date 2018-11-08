@@ -35,7 +35,10 @@ class SuperDataset(object):
             era = self.dataset.split('/')[2]
             self.proc_era = process + '_' + era
         elif self.dataMC == 'mc':
-            process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1]).replace('/', '')
+            if self.dataset.startswith('/DYJetsToLL'):
+                process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1] + '_' + self.dataset.split('_')[2]).replace('/', '')
+            else:
+                process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1]).replace('/', '')
             era = (self.dataset.split('/')[2]).split('_')[0]
             if '_ext' in self.dataset:
                 era += '_ext' + self.dataset.split('_ext')[1].split('/')[0]
@@ -71,12 +74,8 @@ class SuperDataset(object):
             self.json_file = os.path.join(os.environ['CMSSW_BASE'], 'src/VBFHToInv/NanoAODTools/data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt')
 
     def get_job_params(self):
-        if self.dataMC == 'data':
-            self.splitting = 'EventAwareLumiBased'
-            self.unitsPerJob = 50000
-        elif self.dataMC == 'mc':
-            self.splitting = 'FileBased'
-            self.unitsPerJob = 1
+        self.splitting = 'FileBased'
+        self.unitsPerJob = 1
 
 
 def write_config(sd, out_dir=config_out_dir):
@@ -130,7 +129,7 @@ config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
 """.format(request_name=sd.proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'],
-           dataset=sd.dataset, file_out_dir='CHIP_skim_bkg_test1', json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
+           dataset=sd.dataset, file_out_dir='CHIP_skim_bkg_test2', json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
            splitting=sd.splitting, unitsPerJob=sd.unitsPerJob
            )
     )
