@@ -28,7 +28,7 @@ puWeight2017 = lambda : puWeightProducer('auto', pufile_data_2017, "pu_mc", "pil
 #lepton SF
 #from PhysicsTools.NanoAODTools.postprocessing.modules.common.lepSFProducer import lepSF
 
-from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import jetmetUncertainties2016All, jetmetUncertainties2016, jetmetUncertainties2017All, jetmetUncertainties2017
+from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import jetmetUncertainties2016, jetmetUncertainties2017
 
 from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jecUncertainties import jecUncertProducer
 jec_uncerts = [ "SubTotalPileUp",
