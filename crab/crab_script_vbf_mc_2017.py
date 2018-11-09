@@ -7,13 +7,12 @@ from VBFHToInv.NanoAODTools.postprocessing.VBFHToInvModules import *
 #this takes care of converting the input files from CRAB
 from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputFiles,runsAndLumis
 
-modules = [ countHistogramsModule(),
-            TriggerSelectionConstructor(),
+modules = [ TriggerSelectionConstructor(),
             JetCleaningConstructor(), 
             MetCleaningConstructor(), 
             puWeight2017(),
             btagSF2017(),
-            #jetmetUncertainties2017All(),
+            jetmetUncertainties2017(),
             jecUncert_2017_MC(), ]
 
 p = PostProcessor(".", inputFiles(), modules=modules, provenance=True, fwkJobReport=True)
