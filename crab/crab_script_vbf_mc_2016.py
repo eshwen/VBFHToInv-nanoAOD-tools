@@ -10,7 +10,7 @@ modules = [ countHistogramsModule(),
             TriggerSelectionConstructor(),
             JetCleaningConstructor(), 
             MetCleaningConstructor(),
-            #puWeight2016(), <-- need to figure out and define import in VBFHToInvModules.py
+            puWeight2016(),
             btagSF2016(),
             #jetmetUncertainties2016All(),
             jecUncert_2016_MC(), ]
