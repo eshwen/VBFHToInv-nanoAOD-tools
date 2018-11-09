@@ -15,8 +15,10 @@ from PhysicsTools.NanoAODTools.postprocessing.modules.btv.btagSFProducer import 
 
 #pu weight - data file is hardcoded !!!
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import puWeightProducer
-pufile_data="%s/src/VBFHToInv/NanoAODTools/data/pileup/RerecoData2017withSysts.root" % os.environ['CMSSW_BASE']
-puWeight2017 = lambda : puWeightProducer('auto',pufile_data,"pu_mc","pileup",verbose=False)
+pufile_data_2016 = "{}/src/VBFHToInv/NanoAODTools/data/pileup/RerecoData2016withSysts.root".format(os.environ['CMSSW_BASE'])
+pufile_data_2017 = "{}/src/VBFHToInv/NanoAODTools/data/pileup/RerecoData2017withSysts.root".format(os.environ['CMSSW_BASE'])
+puWeight2016 = lambda : puWeightProducer('auto', pufile_data_2016, "pu_mc", "pileup", verbose=False)
+puWeight2017 = lambda : puWeightProducer('auto', pufile_data_2017, "pu_mc", "pileup", verbose=False)
 
 #how to change data and MC files ??
 #pufile_data2017="%s/src/VBFHToInv/NanoAODTools/python/postprocessing/data/pileup/pileup_Cert_294927-306462_13TeV_PromptReco_Collisions17_withVar.root" % os.environ['CMSSW_BASE']
