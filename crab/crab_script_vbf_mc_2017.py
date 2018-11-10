@@ -12,6 +12,8 @@ modules = [ TriggerSelectionConstructor(),
             MetCleaningConstructor(), 
             puWeight2017(),
             btagSF2017(),
+            lepSFtight(),
+            lepSFveto(),
             jetmetUncertainties2017(),
             jecUncert_2017_MC(), ]
 
