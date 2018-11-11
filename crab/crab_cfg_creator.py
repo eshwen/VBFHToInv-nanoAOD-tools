@@ -125,12 +125,17 @@ config.Data.splitting = '{splitting}'
 config.Data.unitsPerJob = {unitsPerJob}
 #config.Data.totalUnits = 1
 
-config.Data.outLFNDirBase = '/store/user/ebhal/{file_out_dir}'
+config.Data.outLFNDirBase = '/store/user/ebhal/{job_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
-""".format(request_name=sd.proc_era, PSet=suppl['PSet'], crab_sh=suppl['crab_sh'], crab_py=suppl['crab_py'],
-           dataset=sd.dataset, file_out_dir='CHIP_skim_bkg_test2', json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
-           splitting=sd.splitting, unitsPerJob=sd.unitsPerJob
+""".format(request_name=sd.proc_era,
+           PSet=suppl['PSet'], crab_sh=suppl['crab_sh'],
+           crab_py=suppl['crab_py'],
+           dataset=sd.dataset,
+           job_out_dir='CHIP_skim_{}_v4'.format(sd.dataMC),
+           json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
+           splitting=sd.splitting,
+           unitsPerJob=sd.unitsPerJob
            )
     )
     out_file.close()
