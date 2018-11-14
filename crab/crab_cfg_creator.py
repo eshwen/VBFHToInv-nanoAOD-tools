@@ -6,7 +6,7 @@ import sys
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dataset_list", type=str, help="File containing list of datasets")
+parser.add_argument("dataset_list", type=str, help=".txt file containing list of datasets, or list of datasets separated by commas")
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('--data', action='store_true', help="Use this option if datasets are data")
 group.add_argument('--mc',   action='store_true', help="Use this option if datasets are Monte Carlo")
@@ -149,8 +149,11 @@ def main():
     if not os.path.exists(config_out_dir):
         os.mkdir(config_out_dir)
 
-    with open(args.dataset_list) as in_file:
-        input_datasets = in_file.readlines()
+    if args.dataset_list.endswith('.txt'):
+        with open(args.dataset_list) as in_file:
+            input_datasets = in_file.readlines()
+    else:
+        input_datasets = args.dataset_list.split(',')
 
     print "Running over datasets..."
 
