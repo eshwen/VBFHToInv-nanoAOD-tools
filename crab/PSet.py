@@ -8,7 +8,7 @@ process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(),
 )
 process.source.fileNames = [
 	#'/eos/user/a/amagnan/datatest.root' ##you can change only this line
-        '/eos/user/a/amagnan/EWKZ2Jets_ZToLL_12Apr2018_94X_nanoAOD_test.root'
+    #'/eos/user/a/amagnan/EWKZ2Jets_ZToLL_12Apr2018_94X_nanoAOD_test.root'
 ]
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(1000))
 process.output = cms.OutputModule("PoolOutputModule", fileName = cms.untracked.string('tree.root'))

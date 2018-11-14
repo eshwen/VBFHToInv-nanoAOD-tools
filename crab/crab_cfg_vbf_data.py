@@ -1,32 +1,44 @@
 from WMCore.Configuration import Configuration
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
+import os
 
 config = Configuration()
 
+dataset = '/MET/Run2017B-31Mar2018-v1/NANOAOD'
+era = (dataset.split('/')[2]).split('_')[0]
+
 config.section_("General")
-config.General.requestName = 'MET_dataset'
+config.General.requestName = process+era
 config.General.transferLogs=True
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'PSet.py'
 config.JobType.scriptExe = 'crab_script_vbf_data.sh'
-config.JobType.inputFiles = ['crab_script_vbf_data.py','../scripts/haddnano.py','../data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'] #hadd nano will not be needed once nano tools are in cmssw
+config.JobType.inputFiles = ['crab_script_vbf_data.py', os.environ['CMSSW_BASE']+'/src/PhysicsTools/NanoAODTools/scripts/haddnano.py','../data/pileup/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'] #hadd nano will not be needed once nano tools are in cmssw
 config.JobType.sendPythonFolder	 = True
 config.section_("Data")
 #config.Data.inputDataset = '/DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM'
 #config.Data.inputDBS = 'phys03'
 config.Data.inputDBS = 'global'
+<<<<<<< HEAD
 config.Data.splitting = 'FileBased'
 #config.Data.splitting = 'EventAwareLumiBased'
 #config.Data.unitsPerJob = 100000
 config.Data.unitsPerJob = 2
 #config.Data.totalUnits = 10
+=======
+#config.Data.splitting = 'FileBased'
+config.Data.splitting = 'EventAwareLumiBased'
+config.Data.unitsPerJob = 10000
+#config.Data.unitsPerJob = 2
+config.Data.totalUnits = 1
+>>>>>>> baae556280f5a62fa55dfdb21e0ca56e8d9d1aaf
 
-config.Data.outLFNDirBase = '/store/user/amagnan/VBF2017/Data/181025'
+config.Data.outLFNDirBase = '/store/user/ebhal/CHIP_skim_test_1'
 config.Data.publication = False
 #config.Data.outputDatasetTag = 'NanoTestPost'
 config.section_("Site")
-config.Site.storageSite = "T2_UK_London_IC"
+config.Site.storageSite = "T2_UK_SGrid_Bristol"
 
 #config.Site.storageSite = "T2_CH_CERN"
 #config.section_("User")
@@ -73,4 +85,4 @@ if 1 == 1:
         config.Data.outputDatasetTag = 'NanoTest'+task[0]
         submit(config)
         config.Data.lumiMask = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'
-        config.Data.runRange = '299327-299329'
+#        config.Data.runRange = '299327-299329'

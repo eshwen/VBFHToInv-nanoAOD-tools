@@ -22,7 +22,8 @@ class LeptonEfficiencyCorrectorCppWorker {
   float getSFErr(int pdgid, float pt, float eta);
   const std::vector<float> & run();
 
-private:
+ private:
+
   std::vector<TH2F*> effmaps_;
   std::vector<float> ret_;
   int nLep_;
