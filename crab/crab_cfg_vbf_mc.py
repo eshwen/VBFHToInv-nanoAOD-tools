@@ -11,15 +11,12 @@ config = Configuration()
 dataset = '/QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM'
 process = (dataset.split('_')[0] + '_' + dataset.split('_')[1]).replace('/', '')
 era = (dataset.split('/')[2]).split('_')[0]
-year = 2016 # hardcoded for now. find workaround
+if 'Summer16NanoAOD' in dataset: year = 2016
+elif 'Fall17NanoAOD' in dataset: year = 2017
 crab_py_script = 'crab_script_vbf_mc_{}.py'.format(year)
 
 config.section_("General")
-<<<<<<< HEAD
-config.General.requestName = 'DYJetsToLL_1J_NLO'
-=======
 config.General.requestName = process+era
->>>>>>> baae556280f5a62fa55dfdb21e0ca56e8d9d1aaf
 config.General.transferLogs=True
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'

@@ -20,19 +20,12 @@ config.section_("Data")
 #config.Data.inputDataset = '/DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM'
 #config.Data.inputDBS = 'phys03'
 config.Data.inputDBS = 'global'
-<<<<<<< HEAD
 config.Data.splitting = 'FileBased'
 #config.Data.splitting = 'EventAwareLumiBased'
 #config.Data.unitsPerJob = 100000
 config.Data.unitsPerJob = 2
 #config.Data.totalUnits = 10
-=======
-#config.Data.splitting = 'FileBased'
-config.Data.splitting = 'EventAwareLumiBased'
-config.Data.unitsPerJob = 10000
-#config.Data.unitsPerJob = 2
-config.Data.totalUnits = 1
->>>>>>> baae556280f5a62fa55dfdb21e0ca56e8d9d1aaf
+
 
 config.Data.outLFNDirBase = '/store/user/ebhal/CHIP_skim_test_1'
 config.Data.publication = False
