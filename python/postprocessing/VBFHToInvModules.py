@@ -5,7 +5,7 @@ import os
 from VBFHToInv.NanoAODTools.postprocessing.modules.dijetVar import DiJetVariableConstructor
 from VBFHToInv.NanoAODTools.postprocessing.modules.jetMetmindphi import JetMetMinDPhiConstructor
 from VBFHToInv.NanoAODTools.postprocessing.modules.MetCleaning import MetCleaningConstructor
-from VBFHToInv.NanoAODTools.postprocessing.modules.lepSFProducer import lepSFtight, lepSFveto
+from VBFHToInv.NanoAODTools.postprocessing.modules.lepSFProducer import lepSFtight2017, lepSFveto2017
 from VBFHToInv.NanoAODTools.postprocessing.modules.jetCleaning import JetCleaningConstructor
 from VBFHToInv.NanoAODTools.postprocessing.modules.trigger_selection import TriggerSelectionConstructor
 

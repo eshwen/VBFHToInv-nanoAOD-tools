@@ -83,7 +83,7 @@ class lepSFProducer(Module):
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed
 
-lepSFveto = lambda : lepSFProducer( '2017', 'Loose', 'Veto')
+lepSFveto2017 = lambda : lepSFProducer( '2017', 'Loose', 'Veto')
 #lepSFvetotrig = lambda : lepSFProducer( '2017', 'Loose_withTrg', 'Veto')
-lepSFtight = lambda : lepSFProducer( '2017', 'Tight', 'Tight')
+lepSFtight2017 = lambda : lepSFProducer( '2017', 'Tight', 'Tight')
 
