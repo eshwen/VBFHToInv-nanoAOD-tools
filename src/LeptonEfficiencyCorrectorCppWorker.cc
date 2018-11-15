@@ -59,4 +59,3 @@ const std::vector<float> & LeptonEfficiencyCorrectorCppWorker::run() {
   }
   return ret_;
 }
-
