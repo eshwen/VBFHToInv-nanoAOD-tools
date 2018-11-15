@@ -99,7 +99,6 @@ def write_config(sd, out_dir=config_out_dir):
                 continue
         shutil.copy(val, out_dir)
 
-
     # Write config file
     out_file = open( os.path.join(out_dir, sd.proc_era+'.py'), 'w' )    
     out_file.write("""
@@ -149,6 +148,7 @@ def main():
     if not os.path.exists(config_out_dir):
         os.mkdir(config_out_dir)
 
+    # If giving a file, currently .txt extension is required
     if args.dataset_list.endswith('.txt'):
         with open(args.dataset_list) as in_file:
             input_datasets = in_file.readlines()
@@ -157,7 +157,7 @@ def main():
 
     print "Running over datasets..."
 
-    # Write identifier strings to use in CRAB config, then write
+    # Strip out unnecessary elements in file, initialise SuperDataset instance for each dataset, then write config
     for dataset in input_datasets:
         if dataset.startswith('#') or dataset.startswith('\n'):
             continue
