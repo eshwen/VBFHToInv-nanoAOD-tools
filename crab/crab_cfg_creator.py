@@ -124,7 +124,7 @@ config.Data.splitting = '{splitting}'
 config.Data.unitsPerJob = {unitsPerJob}
 #config.Data.totalUnits = 1
 
-config.Data.outLFNDirBase = '/store/user/ebhal/{job_out_dir}'
+config.Data.outLFNDirBase = '/store/user/{user}/{job_out_dir}'
 config.Data.publication = False
 config.Site.storageSite = 'T2_UK_SGrid_Bristol'
 """.format(request_name=sd.proc_era,
@@ -134,7 +134,8 @@ config.Site.storageSite = 'T2_UK_SGrid_Bristol'
            job_out_dir='CHIP_skim_{}_v4'.format(sd.dataMC),
            json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
            splitting=sd.splitting,
-           unitsPerJob=sd.unitsPerJob
+           unitsPerJob=sd.unitsPerJob,
+           user=os.environ['USER'] # this requires running on lxplus as it pulls your CERN username, which is used in the CRAB output
            )
     )
     out_file.close()
