@@ -12,6 +12,9 @@ process.source.fileNames = [
     #'/eos/user/a/amagnan/EWKZ2Jets_ZToLL_12Apr2018_94X_nanoAOD_test.root'
 ]
 
+# Append list of files to process with input_file
+process.source.fileNames.append('{input_file}')
+
 process.output = cms.OutputModule("PoolOutputModule",
                                   fileName=cms.untracked.string('tree.root') 
                                   )
