@@ -10,6 +10,8 @@ modules = [
     vbf.TriggerSelectionConstructor(),
     vbf.JetCleaningConstructor(),
     vbf.MetCleaningConstructor(),
+    vbf.DiJetVariableConstructor(),
+    vbf.JetMetMinDPhiConstructor(),
     vbf.jecUncert_2017{block}_data(), # (block) is a kwarg replacement field, replaced in crab_cfg_creator with a proper value
     ]
 

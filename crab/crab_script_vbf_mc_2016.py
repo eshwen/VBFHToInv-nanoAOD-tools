@@ -10,6 +10,8 @@ modules = [
     vbf.TriggerSelectionConstructor(),
     vbf.JetCleaningConstructor(), 
     vbf.MetCleaningConstructor(),
+    vbf.DiJetVariableConstructor(),
+    vbf.JetMetMinDPhiConstructor(),
     vbf.puWeight2016(),
     vbf.btagSF2016(),
     vbf.jetmetUncertainties2016(),
