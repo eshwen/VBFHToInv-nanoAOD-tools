@@ -36,7 +36,7 @@ class SuperDataset(object):
             era = self.dataset.split('/')[2]
             self.proc_era = process + '_' + era
         elif self.dataMC == 'mc':
-            if self.dataset.startswith('/DYJetsToLL'):
+            if self.dataset.startswith('/DYJetsToLL') or self.dataset.startswith('/ST'):
                 process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1] + '_' + self.dataset.split('_')[2]).replace('/', '')
             else:
                 process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1]).replace('/', '')
@@ -132,7 +132,7 @@ config.Site.storageSite = 'T2_UK_SGrid_Bristol'
            PSet=suppl['PSet'], crab_sh=suppl['crab_sh'],
            crab_py=suppl['crab_py'],
            dataset=sd.dataset,
-           job_out_dir='CHIP_skim_{}_v4'.format(sd.dataMC),
+           job_out_dir='CHIP_skim_{}_v5'.format(sd.dataMC),
            json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
            splitting=sd.splitting,
            unitsPerJob=sd.unitsPerJob,
