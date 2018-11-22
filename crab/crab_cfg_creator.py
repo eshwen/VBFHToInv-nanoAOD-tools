@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 from datetime import date
 import os
@@ -81,7 +82,7 @@ class SuperDataset(object):
 def write_config(sd, out_dir=config_out_dir):
     """ Copy extra files required for CRAB and write config file for dataset """
     # Supplementary files required for CRAB
-    suppl = {'PSet': 'PSet.py',
+    suppl = {'PSet': 'PSet_crab.py',
              'crab_sh': 'crab_script_vbf_{dataMC}_{year}.sh'.format(dataMC=sd.dataMC, year=sd.year),
              'crab_py': 'crab_script_vbf_{dataMC}_{year}.py'.format(dataMC=sd.dataMC, year=sd.year),
     }
