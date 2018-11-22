@@ -141,3 +141,8 @@ hadoop fs -copyFromLocal /storage/eb16003/output_ZH/*.root /user/eb16003/CHIP/CH
 ```
 
 Then let someone know where the new files are so we can build file lists and run the analysis chain.
+
+
+## To do
+
+- Tidy up this README, adding hyperlinks for each section (like in my SVJ one), making it more readable and concise
