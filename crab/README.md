@@ -20,7 +20,11 @@ We run skims over the nanoAOD datasets we intend to use in the analysis. This he
 
 ## Setting up the environment (general) <a name="settingupenv"></a>
 
-If you're reading this, you should have already set up CMSSW, nanoAOD-tools and VBFHtoInv-nanoAOD-tools, which are required for running the skims. If not, follow the instructions in the README at https://github.com/eshwen/VBFHToInv-nanoAOD-tools, replacing instances of `vukasinmilosevic` with `eshwen` when cloning the repositories. This ensures you check out the most up-to-date version of everything that is maintained in this README. Make sure to compile the code with `scram b -j 8` initially, from the directory `CMSSW_10_2_5/src/`, and whenever you add/change C++ code. Then in each new session, you should run
+If you're reading this, you should have already set up CMSSW, nanoAOD-tools and VBFHtoInv-nanoAOD-tools, which are required for running the skims. If not, follow the instructions in the README at https://github.com/eshwen/VBFHToInv-nanoAOD-tools, replacing instances of `vukasinmilosevic` with `eshwen` when cloning the repositories. This ensures you check out the most up-to-date version of everything that is maintained in this README. Make sure to compile the code with `scram b -j 8` initially, from the directory `CMSSW_10_2_5/src/`, and whenever you add/change C++ code.
+
+**If you plan to run the skims only with CRAB, it shouldn't matter on which remote server you clone everything. However, if you plan to run with Condor, the code only works on lxplus at the moment.**
+
+Then in each new session, you should run
 
 ```bash
 cd <top_dir>/CMSSW_10_2_5/src
@@ -112,7 +116,7 @@ Now that you're acquainted with running everything, you can also add your own cu
 
 Whilst running the skims with CRAB is ideal, it is not possible for privately-produced nanoAOD samples. Currently, we only have private samples for signal MC as public datasets aren't available. Despite these datasets already being small, they still need to be skimmed over to add the extra branches we apply at this stage and keep everything consistent with the other samples we process.
 
-**This workflow is a little annoying and still being refined, so check back for updates.**
+**This workflow is still being optimised and refined, so check back for updates.**
 
 
 ### Running the skims <a name="runningjobsCondor"></a>
