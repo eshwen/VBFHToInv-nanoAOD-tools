@@ -26,7 +26,7 @@ If you're reading this, you should have already set up CMSSW, nanoAOD-tools and 
 cd <top_dir>/CMSSW_10_2_5/src
 cmsenv
 source /cvmfs/cms.cern.ch/crab3/crab.sh
-export X509_USER_PROXY=/afs/cern.ch/user/${USER:0:1}/${USER}/x509up_u${UID} # if you're running on Condor
+export X509_USER_PROXY=/afs/cern.ch/user/${USER:0:1}/${USER}/x509up_u${UID} # if you plan to run skims with HTCondor
 voms-proxy-init --voms cms --valid 168:00
 cd VBFHToInv/NanoAODTools/crab
 ```
@@ -192,4 +192,4 @@ Then let someone know where the new files are so we can build file lists and run
 
 ## To do <a name="todo"></a>
 
-- Tidy up this README, adding hyperlinks for each section (like in my SVJ one), making it more readable and concise
+- Tidy up this README, making it more readable and concise
