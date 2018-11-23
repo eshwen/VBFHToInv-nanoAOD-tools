@@ -102,7 +102,7 @@ done
 """.format(n_files=n_jobs)
     )
     # Make script executable
-    call('chmod +x {0}'.format(exec_path), shell=True)
+    call('chmod +x {0}'.format(consol_path), shell=True)
 
 
 def main():
