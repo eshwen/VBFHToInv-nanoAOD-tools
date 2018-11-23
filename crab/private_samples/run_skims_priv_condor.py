@@ -108,6 +108,9 @@ fi
 
 def main():
     year = args.year
+    if year != 2016 and year != 2017:
+        sys.exit("Currently the only supported years are 2016 and 2017. Please choose one of them.")
+
     out_dir = os.path.join( args.outdir, os.path.splitext(os.path.basename(args.file))[0] )
     if not os.path.isabs(out_dir):
         out_dir = os.path.abspath(out_dir)
