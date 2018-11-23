@@ -77,6 +77,18 @@ python crab_script_vbf_mc_{year}.py 1
     return exec_path
 
 
+def write_consolidation_script(output_dir):
+    """ Write script to consolidate output files together """
+    consol_path = os.path.join(output_dir, 'consolidate_files.sh')
+    consol_file = open(consol_path, 'w')
+    consol_file.write("""#!/bin/bash
+mkdir all_output_files
+mv output*/*.root ./all_output_files/
+""")
+    # Make script executable
+    call('chmod +x {0}'.format(exec_path), shell=True)
+
+
 def main():
     year = args.year
     out_dir = os.path.join( args.outdir, os.path.splitext(os.path.basename(args.file))[0] )
@@ -132,6 +144,7 @@ voms-proxy-init --voms cms --valid 168:00""")
         call('condor_submit {}'.format(job_file), shell=True)
 
     print "All jobs submitted. Monitor with 'condor_q $USER'"
+    write_consolidation_script(out_dir)
 
 
 if __name__ == '__main__':
