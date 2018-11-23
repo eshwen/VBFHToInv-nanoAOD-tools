@@ -107,9 +107,9 @@ class JetCleaning(Module):
             self.out.fillBranch("jetmet_nomu_mindphi", MinDPhiJMet_Nomu)
             self.out.fillBranch("jetmet_noel_mindphi", MinDPhiJMet_Noel)
             self.out.fillBranch("jetmet_nolep_mindphi",MinDPhiJMet_Nolep)
-            return True
-        else:
-            return False
+        return True
+        #else:
+        #    return False
 
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed
