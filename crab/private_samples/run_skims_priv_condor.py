@@ -98,7 +98,7 @@ mv output*/*.root ./all_output_files/
 
 n_files_observed=$(ls -l ./all_output_files/*.root | wc -l)
 if [ $n_files_expected -eq $n_files_observed ]; then
-    echo "Number of skimmed files does not equal number of input files. Maybe some jobs failed"
+    echo "Number of skimmed files does not equal number of input files. Expected $n_files_expected, found $n_files_observed. Check the logs for job failures."
 fi
 """.format(n_files=n_jobs)
     )
