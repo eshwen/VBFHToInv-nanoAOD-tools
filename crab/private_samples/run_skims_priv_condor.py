@@ -112,6 +112,12 @@ def main():
     if not os.path.isabs(out_dir):
         out_dir = os.path.abspath(out_dir)
 
+    if not 'X509_USER_PROXY' in os.environ:
+        sys.exit("""Because of the nuances of HTCondor, you need to initialise a proxy of your grid certificate somewhere HTCondor has access to (i.e., on /afs).
+Run the following commands before attempting to execute this script again:
+export X509_USER_PROXY=/afs/cern.ch/user/${USER:0:1}/${USER}/x509up_u${UID}
+voms-proxy-init --voms cms --valid 168:00""")
+
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
     else:
@@ -124,12 +130,6 @@ def main():
         sys.exit("File with .txt extension required")
 
     n_jobs = len( filter(lambda x: x.startswith('root://'), input_files) )
-
-    if not 'X509_USER_PROXY' in os.environ:
-        sys.exit("""Because of the nuances of HTCondor, you need to initialise a proxy of your grid certificate somewhere HTCondor has access to (i.e., on /afs).
-Run the following commands before attempting to execute this script again:
-export X509_USER_PROXY=/afs/cern.ch/user/${USER:0:1}/${USER}/x509up_u${UID}
-voms-proxy-init --voms cms --valid 168:00""")
 
     # Copy PSet script with replacement fields to output 
     pset_template_file = os.path.join(out_dir, 'PSet.py')
