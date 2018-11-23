@@ -77,14 +77,30 @@ python crab_script_vbf_mc_{year}.py 1
     return exec_path
 
 
-def write_consolidation_script(output_dir):
+def write_consolidation_script(output_dir, n_jobs):
     """ Write script to consolidate output files together """
     consol_path = os.path.join(output_dir, 'consolidate_files.sh')
     consol_file = open(consol_path, 'w')
     consol_file.write("""#!/bin/bash
+n_files_expected={n_files}
 mkdir all_output_files
 mv output*/*.root ./all_output_files/
-""")
+
+n_files_observed=$(ls -l ./all_output_files/*.root | wc -l)
+if [ $n_files_expected -eq $n_files_observed ]; then
+    echo "Number of skimmed files does not equal number of input files. Maybe some jobs failed"
+fi
+
+for sub_dir in $(ls -d output*/); do
+    cd $sub_dir
+    if [ ! -r *.root ]; then
+        echo "Found no output file in $sub_dir"
+        echo "Resubmit with $(tput bold)condor_submit $sub_dir/condor_job.job$(tput sgr0) or $(tput bold)cd $sub_dir; ./exec.sh; cd -$(tput sgr0)"
+    fi
+    cd ..
+done
+""".format(n_files=n_jobs)
+    )
     # Make script executable
     call('chmod +x {0}'.format(exec_path), shell=True)
 
@@ -144,7 +160,7 @@ voms-proxy-init --voms cms --valid 168:00""")
         call('condor_submit {}'.format(job_file), shell=True)
 
     print "All jobs submitted. Monitor with 'condor_q $USER'"
-    write_consolidation_script(out_dir)
+    write_consolidation_script(out_dir, n_jobs)
 
 
 if __name__ == '__main__':
