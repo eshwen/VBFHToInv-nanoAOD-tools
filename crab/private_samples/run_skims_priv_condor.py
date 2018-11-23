@@ -84,12 +84,6 @@ def write_consolidation_script(output_dir, n_jobs):
     consol_file.write("""#!/bin/bash
 n_files_expected={n_files}
 mkdir all_output_files
-mv output*/*.root ./all_output_files/
-
-n_files_observed=$(ls -l ./all_output_files/*.root | wc -l)
-if [ $n_files_expected -eq $n_files_observed ]; then
-    echo "Number of skimmed files does not equal number of input files. Maybe some jobs failed"
-fi
 
 for sub_dir in $(ls -d output*/); do
     cd $sub_dir
@@ -99,6 +93,13 @@ for sub_dir in $(ls -d output*/); do
     fi
     cd ..
 done
+
+mv output*/*.root ./all_output_files/
+
+n_files_observed=$(ls -l ./all_output_files/*.root | wc -l)
+if [ $n_files_expected -eq $n_files_observed ]; then
+    echo "Number of skimmed files does not equal number of input files. Maybe some jobs failed"
+fi
 """.format(n_files=n_jobs)
     )
     # Make script executable
@@ -167,4 +168,4 @@ if __name__ == '__main__':
     main()
 
 # To do:
-# - Write resubmitter script. Loop over output subdirectories, check the _condor_stderr file and look for some keywords regarding failing. If present, delete skimmed .root file resubmit Condor job.
+# - Try to catch errors better in consolidation script. Loop over output subdirectories, check the _condor_stderr file and look for some keywords regarding failing. If present, delete skimmed .root file (if there) and give command to resubmit Condor job.
