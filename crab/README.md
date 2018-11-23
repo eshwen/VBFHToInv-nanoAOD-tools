@@ -3,22 +3,25 @@
 We run skims over the nanoAOD datasets we intend to use in the analysis. This helps reduce the overall footprint for each dataset, allowing us to store the output files at Bristol (or another "local" server), removing the I/O bottleneck when running over the files for analysis studies.
 
 
-## Running with CRAB (recommended for public datasets)
+## Setting up the environment (general)
 
-### Setting up the environment
-
-If you're reading this, you should have already set up CMSSW, nanoAOD-tools and VBFHtoInv-nanoAOD-tools, which are required for running the skims. If not, follow the instructions at https://github.com/eshwen/VBFHToInv-nanoAOD-tools, replacing instances of `vukasinmilosevic` with `eshwen` when cloning the repositories. Make sure to compile the code with `scram b -j 8` initially, from the directory `CMSSW_10_2_5/src/`, and whenever you add/change C++ code. Then in each new session, you should run
+If you're reading this, you should have already set up CMSSW, nanoAOD-tools and VBFHtoInv-nanoAOD-tools, which are required for running the skims. If not, follow the instructions at https://github.com/eshwen/VBFHToInv-nanoAOD-tools, replacing instances of `vukasinmilosevic` with `eshwen` when cloning the repositories. This ensures you check out the most up-to-date version of everything that is maintained in this README. Make sure to compile the code with `scram b -j 8` initially, from the directory `CMSSW_10_2_5/src/`, and whenever you add/change C++ code. Then in each new session, you should run
 
 ```bash
 cd <top_dir>/CMSSW_10_2_5/src
 cmsenv
 source /cvmfs/cms.cern.ch/crab3/crab.sh
+export X509_USER_PROXY=/afs/cern.ch/user/${USER:0:1}/${USER}/x509up_u${UID} # if you're running on Condor
 voms-proxy-init --voms cms --valid 168:00
 cd VBFHToInv/NanoAODTools/crab
 ```
 
 which also sets up the CRAB environment for job submission/monitoring and initialises a proxy of your grid certificate (required for interacting with the CERN LCG).
 
+**Note: As above and in the following, in case you're unfamiliar, you should replace the contents enclosed by angle brackets by the value/expression they're implying. For example `<top_dir>` should be replaced by the top directory where you set up all the code.**
+
+
+## Running with CRAB (recommended for public datasets)
 
 ### Setting up the CRAB configs
 
@@ -54,7 +57,13 @@ Assuming there's nothing wrong with the config or any other required files, the 
 for dataset in $(ls <identifier>*.py); do crab submit $dataset; done
 ```
 
-where `<identifier>` is just the prefix shared by the datasets you want to submit. Avoid just `ls`-ing `*.py` as it will pick up the other Python files that _aren't_ CRAB configs in that directory. It can also take a few minutes to submit a single dataset, so it's usually preferable to open a few tabs in the terminal to submit different streams of datasets.
+where `<identifier>` is just the prefix shared by the datasets you want to submit. For example, if you have a list of datasets that start with `QCD_HT`, do
+
+```bash
+for dataset in $(ls QCD_HT*.py); do crab submit $dataset; done
+```
+
+Avoid just `ls`-ing `*.py` as it will pick up the other Python files that _aren't_ CRAB configs in that directory. It can also take a few minutes to submit a single dataset, so it's usually preferable to open a few tabs in the terminal to submit different streams of datasets.
 
 If you're writing the output to Bristol (default), the output directory will be `/hdfs/dpm/phy.bris.ac.uk/home/cms/store/user/<user>/`.
 
