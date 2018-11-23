@@ -87,10 +87,10 @@ class JetCleaning(Module):
         Event_ok_jet_met_Noel, MinDPhiJMet_Noel = FormJetMetMinDphi(CleanMet_electrons_phi, cleanJets_phi,len(cleanJets_phi))
         Event_ok_jet_met_Nolep, MinDPhiJMet_Nolep = FormJetMetMinDphi(CleanMet_leptons_phi, cleanJets_phi,len(cleanJets_phi)) 
     
-        selection = len(cleanJets_pt)>=2 and leading_Mjj>300 and leading_dEtajj>1 and MinDPhiJMet_Nolep>0.5 and CleanMet_leptons_pt>150
+        #selection = len(cleanJets_pt)>=2 and leading_Mjj>300 and leading_dEtajj>1 and MinDPhiJMet_Nolep>0.5 and CleanMet_leptons_pt>150
        # selection = True
 
-        if Event_ok_cleanJets and Event_ok_cleanMet_electrons and Event_ok_cleanMet_muons and Event_ok_jet_met_Nomu and Event_ok_jet_met_Noel and Event_ok_cleanMet_leptons and Event_ok_jet_met_Nolep  and selection:
+        if Event_ok_cleanJets and Event_ok_cleanMet_electrons and Event_ok_cleanMet_muons and Event_ok_jet_met_Nomu and Event_ok_jet_met_Noel and Event_ok_cleanMet_leptons and Event_ok_jet_met_Nolep:
             self.out.fillBranch(self.outCollectionName+"_pt", cleanJets_pt)
             self.out.fillBranch(self.outCollectionName+"_eta", cleanJets_eta)
             self.out.fillBranch(self.outCollectionName+"_phi", cleanJets_phi)
