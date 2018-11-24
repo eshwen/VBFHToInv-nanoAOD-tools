@@ -128,7 +128,7 @@ All the files required are in [private_samples/](private_samples/). The input fi
 python run_skims_priv_condor.py <txt file containing file list> <year>
 ```
 
-Note that these are _positional_ arguments, so have to be given in that order. You can specify a specific output directory with the option `--outdir` before the positional arguments. If not, one will be created for you. An example command would be
+Note that these are _positional_ arguments, so have to be given in that order. You can specify a specific output directory with the option `--outdir` before the positional arguments. If not, one will be created for you. Unfortunately, Condor submission in general doesn't work on `/eos` so you will have to specify a directory on `/afs` if using lxplus. An example command would be
 
 ```bash
 python --outdir ./skimmed_ttH/ run_skims_priv_condor.py file_lists/ttH_2016_v1.txt 2016
