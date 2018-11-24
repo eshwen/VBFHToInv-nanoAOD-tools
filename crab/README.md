@@ -131,7 +131,7 @@ python run_skims_priv_condor.py <txt file containing file list> <year>
 Note that these are _positional_ arguments, so have to be given in that order. You can specify a specific output directory with the option `--outdir` before the positional arguments. If not, one will be created for you. Unfortunately, Condor submission in general doesn't work on `/eos` so you will have to specify a directory on `/afs` if using lxplus. An example command would be
 
 ```bash
-python --outdir ./skimmed_ttH/ run_skims_priv_condor.py file_lists/ttH_2016_v1.txt 2016
+python run_skims_priv_condor.py --outdir ./skimmed_ttH/ file_lists/ttH_2016_v1.txt 2016
 ```
 
 This runs the nanoAOD post-processing module in the same way as on CRAB, but takes the file list and runs one file per job on Condor. Whilst is good for consistency, as the `crab_script_vbf_mc` scripts are being used to process the public _and_ private datasets, dealing with the output files is a bit more annoying. If everything runs correctly, in the the output directory you will see a subdirectory for each nanoAOD file that was run over which contains the skimmed file. If a job fails (i.e., there's no output root file in the subdirectory or you get errors when trying to open the root file), you can resubmit it either back to Condor or run it locally:
