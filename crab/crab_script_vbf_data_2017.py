@@ -8,6 +8,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputF
 
 modules = [
     vbf.TriggerSelectionConstructor(),
+    vbf.MetFilters2017Constructor(),
     vbf.JetCleaningConstructor(), # currently, this includes MET cleaning, dijet variables and jetMETMinDPhi
     vbf.jecUncert_2017{block}_data(), # (block) is a kwarg replacement field, replaced in crab_cfg_creator with a proper value
     ]
