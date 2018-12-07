@@ -14,7 +14,7 @@ class MetFilters(Module):
             "Flag_HBHENoiseFilter",
             "Flag_HBHENoiseIsoFilter",
             "Flag_EcalDeadCellTriggerPrimitiveFilter",
-            "Flag_eeBadScFilter",
+            "Flag_eeBadScFilter", # for 2016, available for nanoAODs produced from miniAODv2 and later
         ]
 
         self.flags_2016 = [
