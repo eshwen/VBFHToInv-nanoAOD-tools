@@ -8,7 +8,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputF
 
 modules = [ 
     vbf.TriggerSelectionConstructor(),
-    vbf.MetFilters2016Constructor(),
+    vbf.MetFilters2016MC(),
     vbf.JetCleaningConstructor(), # currently, this includes MET cleaning, dijet variables and jetMETMinDPhi
     vbf.puWeight2016(),
     vbf.btagSF2016(),
