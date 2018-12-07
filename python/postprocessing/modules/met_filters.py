@@ -5,8 +5,9 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.postprocessing.tools import *
 
 class MetFilters(Module):
-    def __init__(self, year):
+    def __init__(self, year, data=False):
         self.year = year
+        self.data = data
 
         self.common_flags = [
             "Flag_goodVertices",
@@ -14,7 +15,6 @@ class MetFilters(Module):
             "Flag_HBHENoiseFilter",
             "Flag_HBHENoiseIsoFilter",
             "Flag_EcalDeadCellTriggerPrimitiveFilter",
-            "Flag_eeBadScFilter", # for 2016, available for nanoAODs produced from miniAODv2 and later
         ]
 
         self.flags_2016 = [
@@ -30,12 +30,19 @@ class MetFilters(Module):
         ]
         self.flags_2017.extend(self.common_flags)
 
+        self.data_flags = [
+            "Flag_eeBadScFilter", # for 2016, available for nanoAODs produced from miniAODv2 and later
+        ]
+
         if self.year == 2016:
             self.applied_flags = self.flags_2016
         elif self.year == 2017:
             self.applied_flags = self.flags_2017
         else:
             self.applied_flags = []
+
+        if self.data:
+            self.applied_flags.extend(self.data_flags)
 
 
     def beginJob(self):
@@ -57,5 +64,7 @@ class MetFilters(Module):
         return True
 
 
-MetFilters2016Constructor = lambda : MetFilters(year=2016)
-MetFilters2017Constructor = lambda : MetFilters(year=2017)
+MetFilters2016MC = lambda : MetFilters(year=2016)
+MetFilters2017MC = lambda : MetFilters(year=2017)
+MetFilters2016Data = lambda : MetFilters(year=2016, data=True)
+MetFilters2017Data = lambda : MetFilters(year=2017, data=True)
