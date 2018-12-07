@@ -5,9 +5,9 @@ import os
 from VBFHToInv.NanoAODTools.postprocessing.modules.dijetVar import DiJetVariableConstructor
 from VBFHToInv.NanoAODTools.postprocessing.modules.jetMetmindphi import JetMetMinDPhiConstructor
 from VBFHToInv.NanoAODTools.postprocessing.modules.MetCleaning import MetCleaningConstructor
-from VBFHToInv.NanoAODTools.postprocessing.modules.lepSFProducer import lepSFtight
-from VBFHToInv.NanoAODTools.postprocessing.modules.lepSFProducer import lepSFveto
+from VBFHToInv.NanoAODTools.postprocessing.modules.lepSFProducer import lepSFtight, lepSFveto
 from VBFHToInv.NanoAODTools.postprocessing.modules.trigger_selection import TriggerSelectionConstructor
+from VBFHToInv.NanoAODTools.postprocessing.modules.met_filters import MetFilters2016Constructor, MetFilters2017Constructor
 
 #btagging weights - give event weight automatically based on jets discri (so all working points automatically)
 from PhysicsTools.NanoAODTools.postprocessing.modules.btv.btagSFProducer import btagSF2017
@@ -26,6 +26,5 @@ puWeight2017 = lambda : puWeightProducer('auto',pufile_data,"pu_mc","pileup",ver
 #lepton SF
 #from PhysicsTools.NanoAODTools.postprocessing.modules.common.lepSFProducer import lepSF
 
-from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import jetmetUncertainties2017All
-from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import jetmetUncertainties2017
+from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import jetmetUncertainties2017All, jetmetUncertainties2017
 
