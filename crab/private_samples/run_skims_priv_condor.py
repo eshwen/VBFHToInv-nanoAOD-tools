@@ -100,6 +100,8 @@ n_files_observed=$(ls -l ./all_output_files/*.root | wc -l)
 if [ $n_files_expected -ne $n_files_observed ]; then
     echo "Number of skimmed files does not equal number of input files. Expected $n_files_expected, found $n_files_observed. Check the logs for job failures."
 fi
+
+echo "If you plan to copy these files to another server, try $(tput bold)rsync -vuz -rltD --compress-level=9 ${USER}@lxplus.cern.ch:"${PWD}/all_output_files/*.root" <destination>$(tput sgr0)"
 """.format(n_files=n_jobs)
     )
     # Make script executable
