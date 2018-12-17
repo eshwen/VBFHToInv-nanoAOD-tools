@@ -132,7 +132,7 @@ config.Site.storageSite = 'T2_UK_SGrid_Bristol'
            PSet=suppl['PSet'], crab_sh=suppl['crab_sh'],
            crab_py=suppl['crab_py'],
            dataset=sd.dataset,
-           job_out_dir='CHIP_skim_{}_{}_v8'.format(sd.dataMC, sd.year),
+           job_out_dir='CHIP_skim_{}_{}_v9'.format(sd.dataMC, sd.year),
            json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
            splitting=sd.splitting,
            unitsPerJob=sd.unitsPerJob,
