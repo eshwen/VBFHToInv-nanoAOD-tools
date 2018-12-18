@@ -101,7 +101,7 @@ if [ $n_files_expected -ne $n_files_observed ]; then
     echo "Number of skimmed files does not equal number of input files. Expected $n_files_expected, found $n_files_observed. Check the logs for job failures."
 fi
 
-echo "If you plan to copy these files to another server, try $(tput bold)rsync -vuz -rltD --compress-level=9 ${USER}@lxplus.cern.ch:"${PWD}/all_output_files/*.root" <destination>$(tput sgr0)"
+echo "If you plan to copy these files to another server, try $(tput bold)rsync -vuz -rltD --compress-level=9 ${{USER}}@lxplus.cern.ch:\\"${{PWD}}/all_output_files/*.root\\" <destination>$(tput sgr0)"
 """.format(n_files=n_jobs)
     )
     # Make script executable
@@ -165,7 +165,7 @@ voms-proxy-init --voms cms --valid 168:00\033[0m""")
         print "Submitting job {}/{}...".format(i+1, n_jobs)
         call('condor_submit {}'.format(job_file), shell=True)
 
-    print "All jobs submitted. Monitor with 'condor_q $USER'"
+    print "All jobs submitted. Monitor with \033[1mcondor_q $USER\033[0m"
     write_consolidation_script(out_dir, n_jobs)
 
 
