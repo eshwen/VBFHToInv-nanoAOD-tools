@@ -36,7 +36,7 @@ class SuperDataset(object):
             era = self.dataset.split('/')[2]
             self.proc_era = process + '_' + era
         elif self.dataMC == 'mc':
-            if self.dataset.startswith('/DYJetsToLL') or self.dataset.startswith('/ST'):
+            if any(self.dataset.startswith(ds) for ds in ['/DYJetsToLL', '/ST', 'GJets_DR']):
                 process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1] + '_' + self.dataset.split('_')[2]).replace('/', '')
             else:
                 process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1]).replace('/', '')
