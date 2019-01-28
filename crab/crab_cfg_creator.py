@@ -129,7 +129,7 @@ config.Data.unitsPerJob = {unitsPerJob}
 
 config.Data.outLFNDirBase = '/store/user/{user}/{job_out_dir}'
 config.Data.publication = False
-config.Site.storageSite = {site}
+config.Site.storageSite = '{site}'
 """.format(request_name=sd.proc_era,
            PSet=suppl['PSet'], crab_sh=suppl['crab_sh'],
            crab_py=suppl['crab_py'],
