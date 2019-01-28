@@ -59,8 +59,8 @@ When parsing a file, the script ignores lines that start with `#` so you can sel
 
 **Things to note**:
 - In the event things don't work out-of-the-box, check the two following points before asking a developer for help.
-- The output directory for the CRAB jobs is tied to your username. The script picks up your username on the machine you're running on, and the output directory requires your CERN username. If they are the same (or you're running on lxplus), there won't be a problem. But if these are different, either run on lxplus or change the line in [crab_cfg_creator.py](crab_cfg_creator.py) where the config file is written from `user=os.environ['USER']` to `user=<CERN username>`.
-- The output from the CRAB jobs is written to Bristol by default, which you can see in the config from the line `config.Site.storageSite = 'T2_UK_SGrid_Bristol'`. If you don't have write access for Bristol or want to send the output somewhere else, you can change this line either in [crab_cfg_creator.py](crab_cfg_creator.py) or in the config after running the script.
+- The output directory for the CRAB jobs is tied to your username. The script picks up your username on the machine you're running on, and the output directory requires your CERN username. If they are the same (or you're running on lxplus), there won't be a problem. But if these are different, either run on lxplus or use the optional argument `--user <CERN username>`.
+- The output from the CRAB jobs is written to Bristol by default, which you can see in the config from the line `config.Site.storageSite = 'T2_UK_SGrid_Bristol'`. If you don't have write access for Bristol or want to send the output somewhere else, you can use the optional argument `--site`.
 
 
 ### Submitting jobs <a name="submittingCRABjobs"></a>

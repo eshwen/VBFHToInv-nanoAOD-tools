@@ -8,6 +8,8 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dataset_list", type=str, help=".txt file containing list of datasets, or list of datasets separated by commas")
+parser.add_argument("--user", "-u", type=str, default=os.environ["USER"], help="Username for writing CRAB output if $USER =/= CERN username")
+parser.add_argument("--site", "-s", type=str, default="T2_UK_SGrid_Bristol", help="LCG storage site to write output to. Default is 'T2_UK_SGrid_Bristol'")
 args = parser.parse_args()
 
 today = str(date.today()).replace('-', '')
@@ -127,7 +129,7 @@ config.Data.unitsPerJob = {unitsPerJob}
 
 config.Data.outLFNDirBase = '/store/user/{user}/{job_out_dir}'
 config.Data.publication = False
-config.Site.storageSite = 'T2_UK_SGrid_Bristol'
+config.Site.storageSite = {site}
 """.format(request_name=sd.proc_era,
            PSet=suppl['PSet'], crab_sh=suppl['crab_sh'],
            crab_py=suppl['crab_py'],
@@ -136,7 +138,8 @@ config.Site.storageSite = 'T2_UK_SGrid_Bristol'
            json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
            splitting=sd.splitting,
            unitsPerJob=sd.unitsPerJob,
-           user=os.environ['USER'] # this requires running on lxplus as it pulls your CERN username, which is used in the CRAB output
+           user=args.user, # this requires running on lxplus as it pulls your CERN username, which is used in the CRAB output
+           site=args.site
            )
     )
     out_file.close()
