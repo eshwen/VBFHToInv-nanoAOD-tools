@@ -8,9 +8,6 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dataset_list", type=str, help=".txt file containing list of datasets, or list of datasets separated by commas")
-group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument('--data', action='store_true', help="Use this option if datasets are data")
-group.add_argument('--mc',   action='store_true', help="Use this option if datasets are Monte Carlo")
 args = parser.parse_args()
 
 today = str(date.today()).replace('-', '')
@@ -21,8 +18,7 @@ class SuperDataset(object):
     """ Sets all parameters required for writing CRAB config file """
     def __init__(self, dataset):
         self.dataset = dataset
-        if args.mc: self.dataMC = 'mc'
-        elif args.data: self.dataMC = 'data'
+        self.get_data_MC()
         self.get_proc_era()
         self.get_year()
         self.get_job_params()
@@ -30,13 +26,17 @@ class SuperDataset(object):
             self.get_run_block()
             self.get_json()
 
+    def get_data_MC(self):
+        if 'Run201' in self.dataset: self.dataMC = 'data'
+        else: self.dataMC = 'mc'
+
     def get_proc_era(self):
         if self.dataMC == 'data':
             process = self.dataset.split('/')[1]
             era = self.dataset.split('/')[2]
             self.proc_era = process + '_' + era
         elif self.dataMC == 'mc':
-            if any(self.dataset.startswith(ds) for ds in ['/DYJetsToLL', '/ST', 'GJets_DR']):
+            if any(self.dataset.startswith(ds) for ds in ['/DYJetsToLL', '/ST', '/GJets_DR', '/QCD_Pt']):
                 process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1] + '_' + self.dataset.split('_')[2]).replace('/', '')
             else:
                 process = (self.dataset.split('_')[0] + '_' + self.dataset.split('_')[1]).replace('/', '')

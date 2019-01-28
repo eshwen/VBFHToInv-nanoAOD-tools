@@ -45,14 +45,14 @@ which also sets up the CRAB environment for job submission/monitoring and initia
 
 ### Setting up the CRAB configs <a name="settingCRABconfigs"></a>
 
-The first step is to create a configuration file that can be sent to CRAB (CMS Remote Analysis Builder), which tells the grid node what to do and what files to run over. The script [crab_cfg_creator.py](crab_cfg_creator.py) does this for you. Give it a list of datasets to process, either in a plain text file (see [dataset_lists/](dataset_lists/) for inspiration) or comma-separated on the command line, and the type (data or MC). Example commands are below:
+The first step is to create a configuration file that can be sent to CRAB (CMS Remote Analysis Builder), which tells the grid node what to do and what files to run over. The script [crab_cfg_creator.py](crab_cfg_creator.py) does this for you. Give it a list of datasets to process, either in a plain text file (see [dataset_lists/](dataset_lists/) for inspiration) or comma-separated on the command line. Example commands are below:
 
 ```bash
-python crab_cfg_creator.py --mc /QCD_HT100to200_TuneCP5_13TeV-madgraph-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM,/QCD_HT100to200_TuneCP5_13TeV-madgraph-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14_ext1-v1/NANOAODSIM
+python crab_cfg_creator.py /QCD_HT100to200_TuneCP5_13TeV-madgraph-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM,/QCD_HT100to200_TuneCP5_13TeV-madgraph-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14_ext1-v1/NANOAODSIM
 ```
 
 ```bash
-python crab_cfg_creator.py --data dataset_lists/data/singleMu_list_2017.txt
+python crab_cfg_creator.py dataset_lists/data/singleMu_list_2017.txt
 ```
 
 When parsing a file, the script ignores lines that start with `#` so you can select datasets to process within a file. The output configs will be in `configs_<YYYYMMDD>/`, with one config per dataset.
