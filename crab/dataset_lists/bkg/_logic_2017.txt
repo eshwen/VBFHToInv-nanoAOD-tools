@@ -1,0 +1,12 @@
+Some 2017 datasets have "old_pmx" and "new_pmx" in their names. The logic is that any "new_pmx" version of a dataset should supersede the corresponding "old_pmx".
+If there is a version without a pmx indicator and one with "new_pmx", the "new_pmx" version should be used.
+However, mixing and matching can be used when taking extension datasets into account (see https://hypernews.cern.ch/HyperNews/CMS/get/mcOps/1629/1.html).
+As regular and extension datasets are independent, the newest of each should be used.
+For example, if there are datasets [X, X_new_pmx, X_ext1], X_new_pmx and X_ext1 can be used together even if X_ext1 doesn't have "new_pmx" in its name.
+Applying this to actual datasets, see the following:
+
+A - /TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+B - /TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_new_pmx_102X_mc2017_realistic_v6-v1/NANOAODSIM
+C - /TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+
+In this scenario, datasets B and C should be used as B replaces A but C is independent of both.
