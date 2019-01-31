@@ -75,13 +75,12 @@ class TriggerSelection(Module):
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
         for trigger in self.HLT_signal_trigger_paths + self.HLT_control_trigger_paths:
-            try:
+            if hasattr(event, trigger):
                 trig_check = getattr(event, trigger)
                 if trig_check == 1:
                     return True # event passes selection
-            except (AttributeError, RuntimeError), e:
-                #Trigger path does not exist in this file
-                continue
+            else:
+                continue # trigger path doesn't exist in file, check next trigger
         return False # if no triggers pass          
 
 
