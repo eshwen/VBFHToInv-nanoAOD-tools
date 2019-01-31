@@ -134,7 +134,7 @@ config.Site.storageSite = '{site}'
            PSet=suppl['PSet'], crab_sh=suppl['crab_sh'],
            crab_py=suppl['crab_py'],
            dataset=sd.dataset,
-           job_out_dir='CHIP_skim_{}_{}_v9'.format(sd.dataMC, sd.year),
+           job_out_dir='CHIP_skim_{}_{}_v10'.format(sd.dataMC, sd.year),
            json='\'{}\''.format(sd.json_file) if sd.dataMC == 'data' else '',
            splitting=sd.splitting,
            unitsPerJob=sd.unitsPerJob,
