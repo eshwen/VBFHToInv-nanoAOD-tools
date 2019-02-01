@@ -20,7 +20,7 @@ We run skims over the nanoAOD datasets we intend to use in the analysis. This he
 
 ## Setting up the environment (general) <a name="settingupenv"></a>
 
-If you're reading this, you should have already set up CMSSW, nanoAOD-tools and VBFHtoInv-nanoAOD-tools, which are required for running the skims. If not, follow the instructions in the README at https://github.com/eshwen/VBFHToInv-nanoAOD-tools, replacing instances of `vukasinmilosevic` with `eshwen` when cloning the repositories. This ensures you check out the most up-to-date version of everything that is maintained in this README. Make sure to compile the code with `scram b -j 8` initially, from the directory `CMSSW_10_2_5/src/`, and whenever you add/change C++ code.
+If you're reading this, you should have already set up CMSSW, nanoAOD-tools and VBFHtoInv-nanoAOD-tools, which are required for running the skims. If not, follow the instructions in the README at https://github.com/eshwen/VBFHToInv-nanoAOD-tools, replacing instances of `vukasinmilosevic` with `eshwen` when cloning the repositories. This ensures you check out the most up-to-date version of everything that is maintained in this README. Your working directory should have at least a few GB free as CRAB project directories can take up quite a bit of space (for reference, the project directory for one dataset is ~100 MB large). Make sure to compile the code with `scram b -j 8` initially, from the directory `CMSSW_10_2_5/src/`, and whenever you add/change C++ code.
 
 **If you plan to run the skims only with CRAB, it shouldn't matter on which remote server you clone everything. However, if you plan to run with Condor, the code only works on lxplus at the moment.**
 
