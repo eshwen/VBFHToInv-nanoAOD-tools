@@ -1,4 +1,4 @@
-# WW missing
+# WW missing. Check status at https://cms-pdmv.cern.ch/mcm/requests?prepid=B2G-RunIIFall17NanoAODv4-00058&page=0&shown=127
 
 /WZ_TuneCP5_13TeV-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
 
